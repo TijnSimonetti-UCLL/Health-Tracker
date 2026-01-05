@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ActivityPage extends StatelessWidget {
@@ -20,23 +21,24 @@ class ActivityPage extends StatelessWidget {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               children: const [
-                ActivityTypeCard(icon: Icons.directions_run, label: 'Lopen'),
+                ActivityTypeCard(icon: Icons.directions_run, label: 'Running'),
                 ActivityTypeCard(icon: Icons.pool, label: 'Swimming'),
                 ActivityTypeCard(icon: Icons.directions_bike, label: 'Biking'),
                 ActivityTypeCard(icon: Icons.directions_walk, label: 'Walking'),
               ],
             ),
 
-            const SizedBox(height: 24),
-
+            //-----------------------ACTIVITEITEN LIST EN MAAND STATISTIEKEN-----------------------//
+            const SizedBox(
+              height: 24,
+            ), //spatie tussen grids en recente activiteiten//
             //Titel recente activiteiten//
             const Text(
               'Recent Activities',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
 
-            const SizedBox(height: 12),
-
+            const SizedBox(height: 10), //spatie tussen titel en lijst//
             //Lijst met recente activiteiten//
             Container(
               decoration: BoxDecoration(
@@ -75,14 +77,14 @@ class ActivityPage extends StatelessWidget {
 
             const SizedBox(height: 24),
 
+            //---------------------------MAAND STATISTIEKEN---------------------------//
             //deze maand statistieken titel//
             const Text(
               'This Month',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
+            ), //titel//
 
-            const SizedBox(height: 12),
-
+            const SizedBox(height: 12), //spatie tussen titel en statistieken//
             //de statistieken van deze maand//
             GridView.count(
               crossAxisCount: 2,
@@ -92,24 +94,24 @@ class ActivityPage extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               children: const [
                 MonthStatCard(
-                  value: '32',
+                  value: '28',
                   label: 'Workouts',
-                  color: Color(0xFFEAF3FF),
+                  color: Colors.lightBlueAccent,
                 ),
                 MonthStatCard(
-                  value: '18.5 hrs',
+                  value: '13.8 hrs',
                   label: 'Active Time',
-                  color: Color(0xFFECFDF3),
+                  color: Colors.lightGreenAccent,
                 ),
                 MonthStatCard(
                   value: '142 km',
                   label: 'Distance',
-                  color: Color(0xFFFFF3E6),
+                  color: CupertinoColors.systemBrown,
                 ),
                 MonthStatCard(
                   value: '7,850',
                   label: 'Burned',
-                  color: Color(0xFFFFEEF2),
+                  color: CupertinoColors.systemYellow,
                 ),
               ],
             ),
