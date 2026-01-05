@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../model/healthdata.dart'; // import your shared state
 
 class OverviewPage extends StatefulWidget {
   const OverviewPage({super.key});
@@ -14,6 +16,9 @@ class _OverviewPageState extends State<OverviewPage> {
 
   @override
   Widget build(BuildContext context) {
+    // <-- Get the current weight from shared state
+    final currentWeight = context.watch<HealthData>().weight;
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -36,8 +41,8 @@ class _OverviewPageState extends State<OverviewPage> {
 
               // 2x2 metric cards
               Row(
-                children: const [
-                  Expanded(
+                children: [
+                  const Expanded(
                     child: MetricCard(
                       title: 'Heart rate',
                       value: '72 BPM',
@@ -45,12 +50,12 @@ class _OverviewPageState extends State<OverviewPage> {
                       textColor: Colors.white,
                     ),
                   ),
-                  SizedBox(width: 12),
+                  const SizedBox(width: 12),
                   Expanded(
                     child: MetricCard(
                       title: 'Weight',
-                      value: '72.5 kg',
-                      color: Color(0xFFD6A437), // goud
+                      value: '$currentWeight kg', // <-- dynamic weight
+                      color: const Color(0xFFD6A437), // goud
                       textColor: Colors.black,
                     ),
                   ),
@@ -82,59 +87,11 @@ class _OverviewPageState extends State<OverviewPage> {
               const SizedBox(height: 16),
 
               // // Tabs (segment control)
-              // Container(
-              //   padding: const EdgeInsets.all(6),
-              //   decoration: BoxDecoration(
-              //     color: const Color(0xFFF2F2F2),
-              //     borderRadius: BorderRadius.circular(14),
-              //   ),
-              //   child: Row(
-              //     children: List.generate(_tabs.length, (i) {
-              //       final selected = _tabIndex == i;
-              //       return Expanded(
-              //         child: GestureDetector(
-              //           onTap: () => setState(() => _tabIndex = i),
-              //           child: Container(
-              //             padding: const EdgeInsets.symmetric(vertical: 10),
-              //             decoration: BoxDecoration(
-              //               color: selected ? Colors.white : Colors.transparent,
-              //               borderRadius: BorderRadius.circular(12),
-              //             ),
-              //             child: Text(
-              //               _tabs[i],
-              //               textAlign: TextAlign.center,
-              //               style: TextStyle(
-              //                 fontWeight:
-              //                     selected ? FontWeight.bold : FontWeight.w500,
-              //                 color: selected ? Colors.black : Colors.black54,
-              //               ),
-              //             ),
-              //           ),
-              //         ),
-              //       );
-              //     }),
-              //   ),
-              // ),
-
+              // ... your commented code remains
               const SizedBox(height: 14),
 
               // // Chart placeholder
-              // Container(
-              //   height: 240,
-              //   width: double.infinity,
-              //   decoration: BoxDecoration(
-              //     color: Colors.white,
-              //     borderRadius: BorderRadius.circular(16),
-              //     border: Border.all(color: Colors.black12),
-              //   ),
-              //   child: Center(
-              //     child: Text(
-              //       'Chart placeholder: ${_tabs[_tabIndex]}',
-              //       style: const TextStyle(color: Colors.black54),
-              //     ),
-              //   ),
-              // ),
-
+              // ... your commented code remains
               const SizedBox(height: 18),
 
               // Health tips
@@ -149,8 +106,10 @@ class _OverviewPageState extends State<OverviewPage> {
                   children: const [
                     Text(
                       'Health Tips',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     SizedBox(height: 10),
 
@@ -166,8 +125,7 @@ class _OverviewPageState extends State<OverviewPage> {
                     SizedBox(height: 10),
                     TipTile(
                       title: 'Consider more cardio',
-                      subtitle:
-                          '30 mins of cardio helps reach weight goal',
+                      subtitle: '30 mins of cardio helps reach weight goal',
                     ),
                   ],
                 ),
@@ -208,11 +166,13 @@ class MetricCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: TextStyle(
-                color: textColor.withOpacity(0.95),
-                fontWeight: FontWeight.w700,
-              )),
+          Text(
+            title,
+            style: TextStyle(
+              color: textColor.withOpacity(0.95),
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           const Spacer(),
           Text(
             value,
@@ -232,11 +192,7 @@ class TipTile extends StatelessWidget {
   final String title;
   final String subtitle;
 
-  const TipTile({
-    super.key,
-    required this.title,
-    required this.subtitle,
-  });
+  const TipTile({super.key, required this.title, required this.subtitle});
 
   @override
   Widget build(BuildContext context) {
@@ -249,8 +205,7 @@ class TipTile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: const TextStyle(fontWeight: FontWeight.w700)),
+          Text(title, style: const TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 4),
           Text(subtitle, style: const TextStyle(color: Colors.black54)),
         ],

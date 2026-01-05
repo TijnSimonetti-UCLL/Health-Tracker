@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../model/healthdata.dart'; // Make sure this file exists
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -8,9 +10,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String currentWeight = '72'; // <-- variable
+  // Remove the local variable, we'll use HealthData instead
 
-  void _editWeight() async {
+  void _editWeight(BuildContext context, String currentWeight) async {
     final controller = TextEditingController(text: currentWeight);
 
     final result = await showDialog<String>(
@@ -21,9 +23,7 @@ class _HomePageState extends State<HomePage> {
           content: TextField(
             controller: controller,
             keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              suffixText: 'kg',
-            ),
+            decoration: const InputDecoration(suffixText: 'kg'),
           ),
           actions: [
             TextButton(
@@ -41,15 +41,17 @@ class _HomePageState extends State<HomePage> {
       },
     );
 
-    if (result != null) {
-      setState(() {
-        currentWeight = result;
-      });
+    if (result != null && result.isNotEmpty) {
+      // update the shared state instead of local variable
+      context.read<HealthData>().updateWeight(result);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    // Use shared weight from HealthData
+    final currentWeight = context.watch<HealthData>().weight;
+
     return Scaffold(
       appBar: AppBar(title: const Text('Welcome to Health Tracker 2')),
       body: SingleChildScrollView(
@@ -69,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                 Expanded(
                   child: InkWell(
                     borderRadius: BorderRadius.circular(14),
-                    onTap: _editWeight,
+                    onTap: () => _editWeight(context, currentWeight),
                     child: HomeInfoCard(
                       title: 'Current weight',
                       value: '$currentWeight kg',
@@ -157,6 +159,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+/* ========== Reusable widgets ========== */
 
 class HomeInfoCard extends StatelessWidget {
   final String title;

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../pages/activity.dart';
 import '../pages/home.dart';
 import '../pages/overview.dart';
+import '../model/healthdata.dart'; // shared state
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -13,11 +15,14 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = const [
-    ActivityPage(),
-    HomePage(),
-    OverviewPage(),
-  ];
+  // Remove const because OverviewPage will read provider dynamically
+  late final List<Widget> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+    _pages = [const ActivityPage(), const HomePage(), const OverviewPage()];
+  }
 
   @override
   Widget build(BuildContext context) {
