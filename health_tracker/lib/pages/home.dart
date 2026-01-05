@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../model/healthdata.dart'; // Make sure this file exists
+import '../model/healthdata.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,7 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // Remove the local variable, we'll use HealthData instead
+  //verwijder de locale weight variabele, maak een functie om gewicht te bewerken//
 
   void _editWeight(BuildContext context, String currentWeight) async {
     final controller = TextEditingController(text: currentWeight);
@@ -28,12 +28,12 @@ class _HomePageState extends State<HomePage> {
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.pop(context), // cancel
+              onPressed: () => Navigator.pop(context),
               child: const Text('Cancel'),
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(context, controller.text); // save
+                Navigator.pop(context, controller.text);
               },
               child: const Text('Save'),
             ),
@@ -43,14 +43,14 @@ class _HomePageState extends State<HomePage> {
     );
 
     if (result != null && result.isNotEmpty) {
-      // update the shared state instead of local variable
+      //update de gedeelde staat//
       context.read<HealthData>().updateWeight(result);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // Use shared weight from HealthData
+    //gebruik provider om het huidige gewicht op te halen//
     final currentWeight = context.watch<HealthData>().weight;
 
     return Scaffold(
@@ -161,7 +161,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-/* ========== Reusable widgets ========== */
+//gebruikbare widgets om meedere keren dezelfde layout te gebruiken//
 
 class HomeInfoCard extends StatelessWidget {
   final String title;
