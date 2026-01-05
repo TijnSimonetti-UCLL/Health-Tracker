@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../model/healthdata.dart'; // import your shared state
+import '../model/healthdata.dart';
+
 
 class OverviewPage extends StatefulWidget {
   const OverviewPage({super.key});
@@ -38,7 +39,7 @@ class _OverviewPageState extends State<OverviewPage> {
 
   String getSleepTip(double hours) {
     if (hours < 6) {
-      return "You didn’t get enough sleep. Try to rest more tonight.";
+      return "You didn't get enough sleep. Try to rest more tonight.";
     }
     if (hours <= 9) return "You had a healthy amount of sleep. Well done!";
     return "You may have slept a bit too much. Keeping a regular sleep schedule can help.";
@@ -47,8 +48,18 @@ class _OverviewPageState extends State<OverviewPage> {
   @override
   Widget build(BuildContext context) {
     final currentWeight = context.watch<HealthData>().weight;
+    //final health = context.watch<HealthData>();
 
-    final weightTip = getWeightTip(weightKg);
+    // final currentWeight = health.weight;
+    // final currentWater = health.waterIntake;
+    // final currentSleep = health.sleepHours;
+
+    //final weightTip = getWeightTip(currentWeight);
+    // final waterTip = getWaterTip(currentWater);
+    // final sleepTip = getSleepTip(currentSleep);
+
+    //final weightTip = getWeightTip(weightKg);
+    final weightTip = getWeightTip(double.tryParse(currentWeight) ?? 0);
     final waterTip = getWaterTip(waterL);
     final sleepTip = getSleepTip(sleepHours);
 
@@ -66,12 +77,11 @@ class _OverviewPageState extends State<OverviewPage> {
               const SizedBox(height: 4),
               const Text(
                 'Detailed summary of your health information',
-                style: TextStyle(color: Colors.black54),
+                style: TextStyle(color: Colors.black),
               ),
 
               const SizedBox(height: 18),
 
-              // 2x2 metric cards (nu ook met de variabelen ingevuld)
               Row(
                 children: [
                   const Expanded(
@@ -87,7 +97,7 @@ class _OverviewPageState extends State<OverviewPage> {
                     child: MetricCard(
                       title: 'Weight',
                       value: '$currentWeight kg',
-                      color: Color(0xFFD6A437), // goud
+                      color: Color(0xFFD6A437),
                       textColor: Colors.black,
                     ),
                   ),
@@ -118,58 +128,8 @@ class _OverviewPageState extends State<OverviewPage> {
 
               const SizedBox(height: 16),
 
-              // // Tabs (segment control)
-              // Container(
-              //   padding: const EdgeInsets.all(6),
-              //   decoration: BoxDecoration(
-              //     color: const Color(0xFFF2F2F2),
-              //     borderRadius: BorderRadius.circular(14),
-              //   ),
-              //   child: Row(
-              //     children: List.generate(_tabs.length, (i) {
-              //       final selected = _tabIndex == i;
-              //       return Expanded(
-              //         child: GestureDetector(
-              //           onTap: () => setState(() => _tabIndex = i),
-              //           child: Container(
-              //             padding: const EdgeInsets.symmetric(vertical: 10),
-              //             decoration: BoxDecoration(
-              //               color: selected ? Colors.white : Colors.transparent,
-              //               borderRadius: BorderRadius.circular(12),
-              //             ),
-              //             child: Text(
-              //               _tabs[i],
-              //               textAlign: TextAlign.center,
-              //               style: TextStyle(
-              //                 fontWeight:
-              //                     selected ? FontWeight.bold : FontWeight.w500,
-              //                 color: selected ? Colors.black : Colors.black54,
-              //               ),
-              //             ),
-              //           ),
-              //         ),
-              //       );
-              //     }),
-              //   ),
-              // ),
               const SizedBox(height: 14),
 
-              // // Chart placeholder
-              // Container(
-              //   height: 240,
-              //   width: double.infinity,
-              //   decoration: BoxDecoration(
-              //     color: Colors.white,
-              //     borderRadius: BorderRadius.circular(16),
-              //     border: Border.all(color: Colors.black12),
-              //   ),
-              //   child: Center(
-              //     child: Text(
-              //       'Chart placeholder: ${_tabs[_tabIndex]}',
-              //       style: const TextStyle(color: Colors.black54),
-              //     ),
-              //   ),
-              // ),
               const SizedBox(height: 18),
 
               // tips op basis van je waardes
@@ -197,10 +157,9 @@ class _OverviewPageState extends State<OverviewPage> {
                     TipTile(title: 'Water', subtitle: waterTip),
                     const SizedBox(height: 10),
 
-                    TipTile(
-                      title: 'Consider more cardio',
-                      subtitle: '30 mins of cardio helps reach weight goal',
-                    ),
+                    TipTile(title: 'Sleep', subtitle: sleepTip),
+                    const SizedBox(height: 10),
+
                   ],
                 ),
               ),
@@ -212,7 +171,7 @@ class _OverviewPageState extends State<OverviewPage> {
   }
 }
 
-/* ============ Reusable widgets ============ */
+//de vakjes
 
 class MetricCard extends StatelessWidget {
   final String title;
@@ -243,7 +202,7 @@ class MetricCard extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              color: textColor.withOpacity(0.95),
+              color: textColor,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -281,7 +240,7 @@ class TipTile extends StatelessWidget {
         children: [
           Text(title, style: const TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 4),
-          Text(subtitle, style: const TextStyle(color: Colors.black54)),
+          Text(subtitle, style: const TextStyle(color: Colors.black)),
         ],
       ),
     );
