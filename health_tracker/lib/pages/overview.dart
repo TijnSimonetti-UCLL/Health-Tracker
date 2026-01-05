@@ -11,27 +11,27 @@ class _OverviewPageState extends State<OverviewPage> {
   int _tabIndex = 0;
   final _tabs = const ['Weight', 'Heart', 'Calories', 'Sleep'];
 
-  // ✅ Voorlopig hardcoded — later maak je dit aanpasbaar
+  // dit moet dynamisch worden
   double weightKg = 50.5;
   double waterL = 1.5;
   double sleepHours = 7.5;
 
   String getWeightTip(double kg) {
-    if (kg < 60) return "je moet misschien iets meer eten";
-    if (kg <= 80) return "je gewicht zit goed blijf zo doorgaan";
-    return "je moet iets minder eten";
+    if (kg < 60) return "You may want to eat a bit more to support a healthy weight.";
+    if (kg <= 80) return "Your weight is within a healthy range. Keep up the good work!";
+    return "You may want to slightly reduce your food intake to improve your health.";
   }
 
   String getWaterTip(double liters) {
-    if (liters < 1) return "je kan wel een beetje meer water drinken";
-    if (liters <= 3) return "je bent goed gehydrateerd";
-    return "je bent misschien een beetje te veel water aan het drinken";
+    if (liters < 1) return "You could benefit from drinking a bit more water today.";
+    if (liters <= 3) return "You are well hydrated. Great job!";
+    return "You may be drinking a bit too much water. Try to keep it balanced.";
   }
 
   String getSleepTip(double hours) {
-    if (hours < 6) return "je hebt te weinig geslapen";
-    if (hours <= 9) return "je hebt voldoende slaap gehad";
-    return "je hebt misschien te veel geslapen";
+    if (hours < 6) return "You didn’t get enough sleep. Try to rest more tonight.";
+    if (hours <= 9) return "You had a healthy amount of sleep. Well done!";
+    return "You may have slept a bit too much. Keeping a regular sleep schedule can help.";
   }
 
   @override
@@ -108,7 +108,7 @@ class _OverviewPageState extends State<OverviewPage> {
 
               const SizedBox(height: 18),
 
-              // ✅ Health tips nu afhankelijk van values
+              // tips op basis van je waardes
               Container(
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
