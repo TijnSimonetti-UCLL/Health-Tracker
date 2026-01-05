@@ -79,7 +79,7 @@ class _OverviewPageState extends State<OverviewPage> {
                   Expanded(
                     child: MetricCard(
                       title: 'Weight',
-                      value: '72.5 kg',
+                      value: '$currentWeight kg',
                       color: Color(0xFFD6A437), // goud
                       textColor: Colors.black,
                     ),
