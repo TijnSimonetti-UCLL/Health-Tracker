@@ -9,11 +9,37 @@ class OverviewPage extends StatefulWidget {
 
 class _OverviewPageState extends State<OverviewPage> {
   int _tabIndex = 0;
-
   final _tabs = const ['Weight', 'Heart', 'Calories', 'Sleep'];
+
+  // ✅ Voorlopig hardcoded — later maak je dit aanpasbaar
+  double weightKg = 50.5;
+  double waterL = 1.5;
+  double sleepHours = 7.5;
+
+  String getWeightTip(double kg) {
+    if (kg < 60) return "je moet misschien iets meer eten";
+    if (kg <= 80) return "je gewicht zit goed blijf zo doorgaan";
+    return "je moet iets minder eten";
+  }
+
+  String getWaterTip(double liters) {
+    if (liters < 1) return "je kan wel een beetje meer water drinken";
+    if (liters <= 3) return "je bent goed gehydrateerd";
+    return "je bent misschien een beetje te veel water aan het drinken";
+  }
+
+  String getSleepTip(double hours) {
+    if (hours < 6) return "je hebt te weinig geslapen";
+    if (hours <= 9) return "je hebt voldoende slaap gehad";
+    return "je hebt misschien te veel geslapen";
+  }
 
   @override
   Widget build(BuildContext context) {
+    final weightTip = getWeightTip(weightKg);
+    final waterTip = getWaterTip(waterL);
+    final sleepTip = getSleepTip(sleepHours);
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -21,7 +47,6 @@ class _OverviewPageState extends State<OverviewPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header
               const Text(
                 'Health Details',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -34,23 +59,23 @@ class _OverviewPageState extends State<OverviewPage> {
 
               const SizedBox(height: 18),
 
-              // 2x2 metric cards
+              // 2x2 metric cards (nu ook met de variabelen ingevuld)
               Row(
-                children: const [
-                  Expanded(
+                children: [
+                  const Expanded(
                     child: MetricCard(
                       title: 'Heart rate',
                       value: '72 BPM',
-                      color: Color(0xFFE53935), // rood
+                      color: Color(0xFFE53935),
                       textColor: Colors.white,
                     ),
                   ),
-                  SizedBox(width: 12),
+                  const SizedBox(width: 12),
                   Expanded(
                     child: MetricCard(
                       title: 'Weight',
-                      value: '72.5 kg',
-                      color: Color(0xFFD6A437), // goud
+                      value: '${weightKg.toStringAsFixed(1)} kg',
+                      color: const Color(0xFFD6A437),
                       textColor: Colors.black,
                     ),
                   ),
@@ -58,86 +83,32 @@ class _OverviewPageState extends State<OverviewPage> {
               ),
               const SizedBox(height: 12),
               Row(
-                children: const [
+                children: [
                   Expanded(
                     child: MetricCard(
                       title: 'Water intake',
-                      value: '1.5L',
-                      color: Color(0xFF3B5BDB), // blauw
+                      value: '${waterL.toStringAsFixed(1)}L',
+                      color: const Color(0xFF3B5BDB),
                       textColor: Colors.white,
                     ),
                   ),
-                  SizedBox(width: 12),
+                  const SizedBox(width: 12),
                   Expanded(
                     child: MetricCard(
                       title: 'Sleep',
-                      value: '7.5/8h',
-                      color: Color(0xFF8E24AA), // paars
+                      value: '${sleepHours.toStringAsFixed(1)}/8h',
+                      color: const Color(0xFF8E24AA),
                       textColor: Colors.white,
                     ),
                   ),
                 ],
               ),
 
-              const SizedBox(height: 16),
-
-              // // Tabs (segment control)
-              // Container(
-              //   padding: const EdgeInsets.all(6),
-              //   decoration: BoxDecoration(
-              //     color: const Color(0xFFF2F2F2),
-              //     borderRadius: BorderRadius.circular(14),
-              //   ),
-              //   child: Row(
-              //     children: List.generate(_tabs.length, (i) {
-              //       final selected = _tabIndex == i;
-              //       return Expanded(
-              //         child: GestureDetector(
-              //           onTap: () => setState(() => _tabIndex = i),
-              //           child: Container(
-              //             padding: const EdgeInsets.symmetric(vertical: 10),
-              //             decoration: BoxDecoration(
-              //               color: selected ? Colors.white : Colors.transparent,
-              //               borderRadius: BorderRadius.circular(12),
-              //             ),
-              //             child: Text(
-              //               _tabs[i],
-              //               textAlign: TextAlign.center,
-              //               style: TextStyle(
-              //                 fontWeight:
-              //                     selected ? FontWeight.bold : FontWeight.w500,
-              //                 color: selected ? Colors.black : Colors.black54,
-              //               ),
-              //             ),
-              //           ),
-              //         ),
-              //       );
-              //     }),
-              //   ),
-              // ),
-
               const SizedBox(height: 14),
-
-              // // Chart placeholder
-              // Container(
-              //   height: 240,
-              //   width: double.infinity,
-              //   decoration: BoxDecoration(
-              //     color: Colors.white,
-              //     borderRadius: BorderRadius.circular(16),
-              //     border: Border.all(color: Colors.black12),
-              //   ),
-              //   child: Center(
-              //     child: Text(
-              //       'Chart placeholder: ${_tabs[_tabIndex]}',
-              //       style: const TextStyle(color: Colors.black54),
-              //     ),
-              //   ),
-              // ),
 
               const SizedBox(height: 18),
 
-              // Health tips
+              // ✅ Health tips nu afhankelijk van values
               Container(
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
@@ -146,28 +117,28 @@ class _OverviewPageState extends State<OverviewPage> {
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
+                  children: [
+                    const Text(
                       'Health Tips',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
 
                     TipTile(
-                      title: 'Increase water intake',
-                      subtitle: 'Try to drink at least 2.5L per day',
+                      title: 'Weight',
+                      subtitle: weightTip,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
+
                     TipTile(
-                      title: 'Great sleep pattern!',
-                      subtitle: 'Keep maintaining 7-8h of sleep',
+                      title: 'Water',
+                      subtitle: waterTip,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
+
                     TipTile(
-                      title: 'Consider more cardio',
-                      subtitle:
-                          '30 mins of cardio helps reach weight goal',
+                      title: 'Sleep',
+                      subtitle: sleepTip,
                     ),
                   ],
                 ),
@@ -208,11 +179,13 @@ class MetricCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: TextStyle(
-                color: textColor.withOpacity(0.95),
-                fontWeight: FontWeight.w700,
-              )),
+          Text(
+            title,
+            style: TextStyle(
+              color: textColor.withOpacity(0.95),
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           const Spacer(),
           Text(
             value,
@@ -249,8 +222,7 @@ class TipTile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: const TextStyle(fontWeight: FontWeight.w700)),
+          Text(title, style: const TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 4),
           Text(subtitle, style: const TextStyle(color: Colors.black54)),
         ],
