@@ -71,7 +71,7 @@ class HomePage extends StatelessWidget {
             ),
             const SizedBox(height: 12),
 
-            // daily summary (3 naast elkaar)
+            //3 daily summary kaarten//
             Row(
               children: const [
                 Expanded(
