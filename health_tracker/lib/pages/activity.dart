@@ -124,7 +124,7 @@ class ActivityPage extends StatelessWidget {
   }
 }
 
-/* herbruikbare widgets */
+//herbruikbare widgets//
 
 class ActivityTypeCard extends StatelessWidget {
   final IconData icon;
