@@ -96,7 +96,7 @@ class HomePage extends StatelessWidget {
                     ),
                     child: const Center(
                       child: Text(
-                        'Steps: 8500',
+                        ' Steps: \n 8500',
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                     ),
