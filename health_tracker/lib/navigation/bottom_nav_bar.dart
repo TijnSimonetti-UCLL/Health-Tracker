@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../pages/home.dart';
 import '../pages/activity.dart';
+import '../pages/home.dart';
 import '../pages/overview.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -13,7 +13,11 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = const [HomePage(), ActivityPage(), OverviewPage()];
+  final List<Widget> _pages = const [
+    ActivityPage(),
+    HomePage(),
+    OverviewPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +31,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
           });
         },
         items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.monitor_heart),
+            label: 'Activity',
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Activity'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Overview'),
         ],
       ),
