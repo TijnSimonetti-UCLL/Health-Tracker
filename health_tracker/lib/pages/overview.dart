@@ -19,26 +19,33 @@ class _OverviewPageState extends State<OverviewPage> {
   double sleepHours = 7.5;
 
   String getWeightTip(double kg) {
-    if (kg < 60) return "You may want to eat a bit more to support a healthy weight.";
-    if (kg <= 80) return "Your weight is within a healthy range. Keep up the good work!";
+    if (kg < 60) {
+      return "You may want to eat a bit more to support a healthy weight.";
+    }
+    if (kg <= 80) {
+      return "Your weight is within a healthy range. Keep up the good work!";
+    }
     return "You may want to slightly reduce your food intake to improve your health.";
   }
 
   String getWaterTip(double liters) {
-    if (liters < 1) return "You could benefit from drinking a bit more water today.";
+    if (liters < 1) {
+      return "You could benefit from drinking a bit more water today.";
+    }
     if (liters <= 3) return "You are well hydrated. Great job!";
     return "You may be drinking a bit too much water. Try to keep it balanced.";
   }
 
   String getSleepTip(double hours) {
-    if (hours < 6) return "You didn’t get enough sleep. Try to rest more tonight.";
+    if (hours < 6) {
+      return "You didn’t get enough sleep. Try to rest more tonight.";
+    }
     if (hours <= 9) return "You had a healthy amount of sleep. Well done!";
     return "You may have slept a bit too much. Keeping a regular sleep schedule can help.";
   }
 
   @override
   Widget build(BuildContext context) {
-    // <-- Get the current weight from shared state
     final currentWeight = context.watch<HealthData>().weight;
 
     final weightTip = getWeightTip(weightKg);
@@ -145,7 +152,6 @@ class _OverviewPageState extends State<OverviewPage> {
               //     }),
               //   ),
               // ),
-
               const SizedBox(height: 14),
 
               // // Chart placeholder
@@ -164,7 +170,6 @@ class _OverviewPageState extends State<OverviewPage> {
               //     ),
               //   ),
               // ),
-
               const SizedBox(height: 18),
 
               // tips op basis van je waardes
@@ -179,27 +184,22 @@ class _OverviewPageState extends State<OverviewPage> {
                   children: [
                     const Text(
                       'Health Tips',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const SizedBox(height: 10),
 
-                    TipTile(
-                      title: 'Weight',
-                      subtitle: weightTip,
-                    ),
+                    TipTile(title: 'Weight', subtitle: weightTip),
                     const SizedBox(height: 10),
 
-                    TipTile(
-                      title: 'Water',
-                      subtitle: waterTip,
-                    ),
+                    TipTile(title: 'Water', subtitle: waterTip),
                     const SizedBox(height: 10),
 
                     TipTile(
                       title: 'Consider more cardio',
-                      subtitle:
-                          '30 mins of cardio helps reach weight goal',
+                      subtitle: '30 mins of cardio helps reach weight goal',
                     ),
                   ],
                 ),
