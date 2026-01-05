@@ -13,6 +13,7 @@ class ActivityPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            //-----------------------BESCHIKBARE ACTIVITEITEN-----------------------//
             //Types beschikbare activiteiten//
             GridView.count(
               crossAxisCount: 2,
@@ -46,6 +47,7 @@ class ActivityPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: Colors.black12),
               ),
+              //info over recente activiteiten//
               child: Column(
                 children: const [
                   ActivityListItem(
