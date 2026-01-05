@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../model/healthdata.dart'; // Make sure this file exists
@@ -76,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                       title: 'Current weight',
                       value: '$currentWeight kg',
                       icon: Icons.monitor_weight,
-                      color: const Color(0xFFFFF3E6),
+                      color: CupertinoColors.systemYellow,
                     ),
                   ),
                 ),
@@ -86,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                     title: 'Heart rate',
                     value: '75 bpm',
                     icon: Icons.favorite,
-                    color: Color(0xFFFFEEF2),
+                    color: CupertinoColors.systemBrown,
                   ),
                 ),
               ],
@@ -99,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                     title: 'BMI',
                     value: '22.5',
                     icon: Icons.calculate,
-                    color: Color(0xFFEAF3FF),
+                    color: Colors.lightBlueAccent,
                   ),
                 ),
                 SizedBox(width: 12),
@@ -108,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                     title: 'Calory intake',
                     value: '2000 kcal',
                     icon: Icons.local_fire_department,
-                    color: Color(0xFFF3E8FF),
+                    color: CupertinoColors.systemPurple,
                   ),
                 ),
               ],
