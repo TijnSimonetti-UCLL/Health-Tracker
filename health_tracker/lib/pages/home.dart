@@ -7,133 +7,183 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Welcome to Health Tracker')),
-      body: Column(
-        children: [
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.orange[400],
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Center(
-                child: Text(
-                  'Current weight: 1kg',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Today',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+
+            // 4 hoofdkaarten (2x2)
+            Row(
+              children: const [
+                Expanded(
+                  child: HomeInfoCard(
+                    title: 'Current weight',
+                    value: '1 kg',
+                    icon: Icons.monitor_weight,
+                    color: Color(0xFFFFF3E6),
                   ),
                 ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.red[400],
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Center(
-                child: Text(
-                  'heart rate: 75 bpm',
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 0, 61, 111),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Center(
-                child: Text(
-                  'BMI: 22.5',
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.purple[400],
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Center(
-                child: Text(
-                  'Calory intake: 2000 kcal',
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
-              ),
-            ),
-          ),
-          // dag summary
-          Expanded(
-            child: Row(
-              children: [
-                // Hier moet nog tekst komen van daily summary, voorlopig is dat gekke error
-                // child: Text(
-                //   'Daily Summary',
-                //   style: TextStyle(
-                //     fontSize: 20,
-                //     fontWeight: FontWeight.bold,
-                //   ),
-                // },
-                // )
+                SizedBox(width: 12),
                 Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.green[400],
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        ' Steps: \n 8500',
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.blue[400],
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        ' Active \n 43 mins',
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.teal[400],
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        ' kcal \n 367',
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                    ),
+                  child: HomeInfoCard(
+                    title: 'Heart rate',
+                    value: '75 bpm',
+                    icon: Icons.favorite,
+                    color: Color(0xFFFFEEF2),
                   ),
                 ),
               ],
             ),
+            const SizedBox(height: 12),
+            Row(
+              children: const [
+                Expanded(
+                  child: HomeInfoCard(
+                    title: 'BMI',
+                    value: '22.5',
+                    icon: Icons.calculate,
+                    color: Color(0xFFEAF3FF),
+                  ),
+                ),
+                SizedBox(width: 12),
+                Expanded(
+                  child: HomeInfoCard(
+                    title: 'Calory intake',
+                    value: '2000 kcal',
+                    icon: Icons.local_fire_department,
+                    color: Color(0xFFF3E8FF),
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 24),
+
+            const Text(
+              'Daily Summary',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+
+            // daily summary (3 naast elkaar)
+            Row(
+              children: const [
+                Expanded(
+                  child: SmallSummaryCard(
+                    title: 'Steps',
+                    value: '8500',
+                    icon: Icons.directions_walk,
+                    color: Color(0xFFECFDF3),
+                  ),
+                ),
+                SizedBox(width: 12),
+                Expanded(
+                  child: SmallSummaryCard(
+                    title: 'Active',
+                    value: '43 min',
+                    icon: Icons.timer,
+                    color: Color(0xFFEAF3FF),
+                  ),
+                ),
+                SizedBox(width: 12),
+                Expanded(
+                  child: SmallSummaryCard(
+                    title: 'Kcal',
+                    value: '367',
+                    icon: Icons.local_fire_department,
+                    color: Color(0xFFE6FFFB),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class HomeInfoCard extends StatelessWidget {
+  final String title;
+  final String value;
+  final IconData icon;
+  final Color color;
+
+  const HomeInfoCard({
+    super.key,
+    required this.title,
+    required this.value,
+    required this.icon,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 120,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Colors.black12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, color: Colors.black87),
+          const Spacer(),
+          Text(title, style: const TextStyle(color: Colors.black54)),
+          const SizedBox(height: 6),
+          Text(
+            value,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SmallSummaryCard extends StatelessWidget {
+  final String title;
+  final String value;
+  final IconData icon;
+  final Color color;
+
+  const SmallSummaryCard({
+    super.key,
+    required this.title,
+    required this.value,
+    required this.icon,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 90,
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Colors.black12),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, size: 22),
+          const SizedBox(height: 6),
+          Text(value, style: const TextStyle(fontWeight: FontWeight.bold)),
+          const SizedBox(height: 2),
+          Text(
+            title,
+            style: const TextStyle(fontSize: 12, color: Colors.black54),
           ),
         ],
       ),
