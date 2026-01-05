@@ -19,6 +19,7 @@ class _OverviewPageState extends State<OverviewPage> {
   double waterL = 1.5;
   double sleepHours = 7.5;
 
+  //functie om tips te genereren op basis van waardes
   String getWeightTip(double kg) {
     if (kg < 60) {
       return "You may want to eat a bit more to support a healthy weight.";
@@ -29,6 +30,7 @@ class _OverviewPageState extends State<OverviewPage> {
     return "You may want to slightly reduce your food intake to improve your health.";
   }
 
+  //functie om tips te genereren op basis van waardes
   String getWaterTip(double liters) {
     if (liters < 1) {
       return "You could benefit from drinking a bit more water today.";
@@ -37,6 +39,7 @@ class _OverviewPageState extends State<OverviewPage> {
     return "You may be drinking a bit too much water. Try to keep it balanced.";
   }
 
+  //functie om tips te genereren op basis van waardes
   String getSleepTip(double hours) {
     if (hours < 6) {
       return "You didn't get enough sleep. Try to rest more tonight.";
@@ -66,6 +69,7 @@ class _OverviewPageState extends State<OverviewPage> {
     final waterTip = getWaterTip(waterL);
     final sleepTip = getSleepTip(sleepHours);
 
+    //-----------------UI BUILDEN------------------//
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -190,6 +194,7 @@ class MetricCard extends StatelessWidget {
     required this.textColor,
   });
 
+  // de opmaak van de vakjes
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -221,6 +226,7 @@ class MetricCard extends StatelessWidget {
   }
 }
 
+//de tips lijsten
 class TipTile extends StatelessWidget {
   final String title;
   final String subtitle;
