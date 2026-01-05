@@ -75,7 +75,7 @@ class ActivityPage extends StatelessWidget {
 
             const SizedBox(height: 24),
 
-            // This month titel
+            //deze maand statistieken titel//
             const Text(
               'This Month',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -83,7 +83,7 @@ class ActivityPage extends StatelessWidget {
 
             const SizedBox(height: 12),
 
-            // Maand statistieken
+            //de statistieken van deze maand//
             GridView.count(
               crossAxisCount: 2,
               crossAxisSpacing: 16,
