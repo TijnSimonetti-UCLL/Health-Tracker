@@ -48,10 +48,41 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  void _editHeartRate(BuildContext context, String heartRate) async {
+    final controller = TextEditingController(text: heartRate);
+
+    final newValue = await showDialog<String>(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Edit heart rate'),
+        content: TextField(
+          controller: controller,
+          keyboardType: TextInputType.number,
+          decoration: const InputDecoration(suffixText: 'bpm'),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.pop(context, controller.text),
+            child: const Text('Save'),
+          ),
+        ],
+      ),
+    );
+
+    if (newValue != null && newValue.isNotEmpty) {
+      context.read<HealthData>().updateHeartRate(newValue);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     //gebruik provider om het huidige gewicht op te halen//
     final currentWeight = context.watch<HealthData>().weight;
+    final currentHeartRate = context.watch<HealthData>().heartRate;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Welcome to Health Tracker 2')),
@@ -82,12 +113,16 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const SizedBox(width: 12),
-                const Expanded(
-                  child: HomeInfoCard(
-                    title: 'Heart rate',
-                    value: '75 bpm',
-                    icon: Icons.favorite,
-                    color: CupertinoColors.systemBrown,
+                Expanded(
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(14),
+                    onTap: () => _editHeartRate(context, currentHeartRate),
+                    child: HomeInfoCard(
+                      title: 'Heart rate',
+                      value: '$currentHeartRate bpm',
+                      icon: Icons.favorite,
+                      color: CupertinoColors.systemBrown,
+                    ),
                   ),
                 ),
               ],
