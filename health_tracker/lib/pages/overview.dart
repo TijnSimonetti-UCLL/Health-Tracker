@@ -14,6 +14,7 @@ class _OverviewPageState extends State<OverviewPage> {
   final _tabs = const ['Weight', 'Heart', 'Calories', 'Sleep'];
 
   // dit moet dynamisch worden
+  //voorlopig vaste waardes
   double weightKg = 50.5;
   double waterL = 1.5;
   double sleepHours = 7.5;
@@ -44,6 +45,7 @@ class _OverviewPageState extends State<OverviewPage> {
     return "You may have slept a bit too much. Keeping a regular sleep schedule can help.";
   }
 
+  //-----------------BUILD METHOD------------------//
   @override
   Widget build(BuildContext context) {
     final currentWeight = context.watch<HealthData>().weight;
