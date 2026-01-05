@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../model/healthdata.dart';
 
-
 class OverviewPage extends StatefulWidget {
   const OverviewPage({super.key});
 
@@ -48,6 +47,8 @@ class _OverviewPageState extends State<OverviewPage> {
   @override
   Widget build(BuildContext context) {
     final currentWeight = context.watch<HealthData>().weight;
+    final currentHeartRate = context.watch<HealthData>().heartRate;
+
     //final health = context.watch<HealthData>();
 
     // final currentWeight = health.weight;
@@ -84,14 +85,15 @@ class _OverviewPageState extends State<OverviewPage> {
 
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: MetricCard(
                       title: 'Heart rate',
-                      value: '72 BPM',
-                      color: Color(0xFFE53935),
+                      value: '$currentHeartRate BPM',
+                      color: const Color(0xFFE53935),
                       textColor: Colors.white,
                     ),
                   ),
+
                   const SizedBox(width: 12),
                   Expanded(
                     child: MetricCard(
@@ -159,7 +161,6 @@ class _OverviewPageState extends State<OverviewPage> {
 
                     TipTile(title: 'Sleep', subtitle: sleepTip),
                     const SizedBox(height: 10),
-
                   ],
                 ),
               ),
@@ -201,10 +202,7 @@ class MetricCard extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
-              color: textColor,
-              fontWeight: FontWeight.w700,
-            ),
+            style: TextStyle(color: textColor, fontWeight: FontWeight.w700),
           ),
           const Spacer(),
           Text(
