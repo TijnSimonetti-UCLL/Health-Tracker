@@ -27,7 +27,7 @@ class ActivityPage extends StatelessWidget {
               ],
             ),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 2),
 
             //Titel recente activiteiten//
             const Text(
