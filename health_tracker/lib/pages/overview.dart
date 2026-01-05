@@ -81,59 +81,59 @@ class _OverviewPageState extends State<OverviewPage> {
 
               const SizedBox(height: 16),
 
-              // Tabs (segment control)
-              Container(
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF2F2F2),
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: Row(
-                  children: List.generate(_tabs.length, (i) {
-                    final selected = _tabIndex == i;
-                    return Expanded(
-                      child: GestureDetector(
-                        onTap: () => setState(() => _tabIndex = i),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          decoration: BoxDecoration(
-                            color: selected ? Colors.white : Colors.transparent,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Text(
-                            _tabs[i],
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight:
-                                  selected ? FontWeight.bold : FontWeight.w500,
-                              color: selected ? Colors.black : Colors.black54,
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
-                ),
-              ),
+              // // Tabs (segment control)
+              // Container(
+              //   padding: const EdgeInsets.all(6),
+              //   decoration: BoxDecoration(
+              //     color: const Color(0xFFF2F2F2),
+              //     borderRadius: BorderRadius.circular(14),
+              //   ),
+              //   child: Row(
+              //     children: List.generate(_tabs.length, (i) {
+              //       final selected = _tabIndex == i;
+              //       return Expanded(
+              //         child: GestureDetector(
+              //           onTap: () => setState(() => _tabIndex = i),
+              //           child: Container(
+              //             padding: const EdgeInsets.symmetric(vertical: 10),
+              //             decoration: BoxDecoration(
+              //               color: selected ? Colors.white : Colors.transparent,
+              //               borderRadius: BorderRadius.circular(12),
+              //             ),
+              //             child: Text(
+              //               _tabs[i],
+              //               textAlign: TextAlign.center,
+              //               style: TextStyle(
+              //                 fontWeight:
+              //                     selected ? FontWeight.bold : FontWeight.w500,
+              //                 color: selected ? Colors.black : Colors.black54,
+              //               ),
+              //             ),
+              //           ),
+              //         ),
+              //       );
+              //     }),
+              //   ),
+              // ),
 
               const SizedBox(height: 14),
 
-              // Chart placeholder
-              Container(
-                height: 240,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: Colors.black12),
-                ),
-                child: Center(
-                  child: Text(
-                    'Chart placeholder: ${_tabs[_tabIndex]}',
-                    style: const TextStyle(color: Colors.black54),
-                  ),
-                ),
-              ),
+              // // Chart placeholder
+              // Container(
+              //   height: 240,
+              //   width: double.infinity,
+              //   decoration: BoxDecoration(
+              //     color: Colors.white,
+              //     borderRadius: BorderRadius.circular(16),
+              //     border: Border.all(color: Colors.black12),
+              //   ),
+              //   child: Center(
+              //     child: Text(
+              //       'Chart placeholder: ${_tabs[_tabIndex]}',
+              //       style: const TextStyle(color: Colors.black54),
+              //     ),
+              //   ),
+              // ),
 
               const SizedBox(height: 18),
 
