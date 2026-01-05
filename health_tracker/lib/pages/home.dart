@@ -6,7 +6,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Welcome to Health Tracker')),
+      appBar: AppBar(title: const Text('Welcome to Health Tracker 2')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
