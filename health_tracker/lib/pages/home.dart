@@ -1,7 +1,52 @@
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String currentWeight = '72'; // <-- variable
+
+  void _editWeight() async {
+    final controller = TextEditingController(text: currentWeight);
+
+    final result = await showDialog<String>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Edit weight'),
+          content: TextField(
+            controller: controller,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              suffixText: 'kg',
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context), // cancel
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context, controller.text); // save
+              },
+              child: const Text('Save'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (result != null) {
+      setState(() {
+        currentWeight = result;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,17 +65,21 @@ class HomePage extends StatelessWidget {
 
             //de 4 kaarten//
             Row(
-              children: const [
+              children: [
                 Expanded(
-                  child: HomeInfoCard(
-                    title: 'Current weight',
-                    value: '1 kg',
-                    icon: Icons.monitor_weight,
-                    color: Color(0xFFFFF3E6),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(14),
+                    onTap: _editWeight,
+                    child: HomeInfoCard(
+                      title: 'Current weight',
+                      value: '$currentWeight kg',
+                      icon: Icons.monitor_weight,
+                      color: const Color(0xFFFFF3E6),
+                    ),
                   ),
                 ),
-                SizedBox(width: 12),
-                Expanded(
+                const SizedBox(width: 12),
+                const Expanded(
                   child: HomeInfoCard(
                     title: 'Heart rate',
                     value: '75 bpm',
