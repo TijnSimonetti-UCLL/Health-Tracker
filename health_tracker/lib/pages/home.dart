@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
             ),
             const SizedBox(height: 12),
 
-            // 4 hoofdkaarten (2x2)
+            //de 4 kaarten//
             Row(
               children: const [
                 Expanded(
