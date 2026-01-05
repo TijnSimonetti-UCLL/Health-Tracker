@@ -20,7 +20,7 @@ class ActivityPage extends StatelessWidget {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               children: const [
-                ActivityTypeCard(icon: Icons.directions_run, label: 'Running'),
+                ActivityTypeCard(icon: Icons.directions_run, label: 'Lopen'),
                 ActivityTypeCard(icon: Icons.pool, label: 'Swimming'),
                 ActivityTypeCard(icon: Icons.directions_bike, label: 'Biking'),
                 ActivityTypeCard(icon: Icons.directions_walk, label: 'Walking'),
@@ -120,9 +120,7 @@ class ActivityPage extends StatelessWidget {
   }
 }
 
-/* =======================
-   Kleine herbruikbare widgets
-   ======================= */
+/* herbruikbare widgets */
 
 class ActivityTypeCard extends StatelessWidget {
   final IconData icon;
