@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   //verwijder de locale weight variabele, maak een functie om gewicht te bewerken//
 
+  //----------------functie om gewicht te bewerken-----------------//
   void _editWeight(BuildContext context, String currentWeight) async {
     final controller = TextEditingController(text: currentWeight);
 
@@ -48,6 +49,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  //----------------functie om hartslag te bewerken-----------------//
   void _editHeartRate(BuildContext context, String heartRate) async {
     final controller = TextEditingController(text: heartRate);
 
