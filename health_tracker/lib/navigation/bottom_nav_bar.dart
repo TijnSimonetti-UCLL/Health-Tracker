@@ -1,0 +1,37 @@
+import 'package:flutter/material.dart';
+import '../pages/home.dart';
+import '../pages/activity.dart';
+import '../pages/overview.dart';
+
+class BottomNavBar extends StatefulWidget {
+  const BottomNavBar({super.key});
+
+  @override
+  State<BottomNavBar> createState() => _BottomNavBarState();
+}
+
+class _BottomNavBarState extends State<BottomNavBar> {
+  int _currentIndex = 0;
+
+  final List<Widget> _pages = const [HomePage(), ActivityPage(), OverviewPage()];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: IndexedStack(index: _currentIndex, children: _pages),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Activity'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Overview'),
+        ],
+      ),
+    );
+  }
+}
