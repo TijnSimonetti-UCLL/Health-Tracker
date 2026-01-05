@@ -12,7 +12,7 @@ class ActivityPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //Types activiteiten//
+            //Types beschikbare activiteiten//
             GridView.count(
               crossAxisCount: 2,
               crossAxisSpacing: 16,
@@ -27,7 +27,7 @@ class ActivityPage extends StatelessWidget {
               ],
             ),
 
-            const SizedBox(height: 24),
+            const SizedBox(height: 20),
 
             //Titel recente activiteiten//
             const Text(
