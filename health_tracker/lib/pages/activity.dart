@@ -9,12 +9,21 @@ class ActivityItem {
   final String date;
   final String calories;
 
+  // info voor de this month sectie
+  final int minutes;
+  final double km;
+  final int cal;
+
   ActivityItem({
     required this.icon,
     required this.title,
     required this.info,
     required this.date,
     required this.calories,
+
+    required this.minutes,
+    required this.km,
+    required this.cal,
   });
 }
 
@@ -36,6 +45,9 @@ class _ActivityPageState extends State<ActivityPage> {
       info: '03:24 • 5.2 KM',
       date: 'Today, 7:30 AM',
       calories: '310',
+      minutes: 3,
+      km: 5.2,
+      cal: 310,
     ),
     ActivityItem(
       icon: Icons.pool,
@@ -43,6 +55,9 @@ class _ActivityPageState extends State<ActivityPage> {
       info: '28:15 • 1.2 KM',
       date: '2 days ago, 08:00 AM',
       calories: '280',
+      minutes: 28,
+      km: 1.2,
+      cal: 280,
     ),
     ActivityItem(
       icon: Icons.directions_bike,
@@ -50,6 +65,9 @@ class _ActivityPageState extends State<ActivityPage> {
       info: '05:00 • 3.8 KM',
       date: '3 days ago, 5:30 PM',
       calories: '420',
+      minutes: 5,
+      km: 3.8,
+      cal: 420,
     ),
   ];
 
@@ -86,6 +104,7 @@ class _ActivityPageState extends State<ActivityPage> {
             ),
           ],
         ),
+        //dit zijn de knoppen die we gebruiken in vul in pagina
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
@@ -99,20 +118,28 @@ class _ActivityPageState extends State<ActivityPage> {
       ),
     );
     //als er op ok wordt gedrukt dan word de nieuwe activiteit toegevoegd aan de lijst
-    if (ok == true) {
-      setState(() {
-        recentActivities.insert(
-          0,
-          ActivityItem(
-            icon: icon,
-            title: titleC.text.isEmpty ? typeName : titleC.text,
-            info: '${timeC.text} min • ${kmC.text} KM',
-            date: 'Today',
-            calories: calC.text,
-          ),
-        );
-      });
-    }
+    if (ok != true) return;
+
+    final minutes = int.tryParse(timeC.text.trim()) ?? 0;
+    final km = double.tryParse(kmC.text.trim()) ?? 0.0;
+    final cal = int.tryParse(calC.text.trim()) ?? 0;
+
+    //hier word de info berekend en toegevoegd aan de lijst
+    setState(() {
+      recentActivities.insert(
+        0,
+        ActivityItem(
+          icon: icon,
+          title: titleC.text.trim().isEmpty ? typeName : titleC.text.trim(),
+          info: '$minutes min • ${km.toStringAsFixed(1)} KM',
+          date: 'Today',
+          calories: '$cal',
+          minutes: minutes,
+          km: km,
+          cal: cal,
+        ),
+      );
+    });
   }
 
   //----------------OPBOUW PAGINA----------------//
@@ -121,6 +148,12 @@ class _ActivityPageState extends State<ActivityPage> {
   Widget build(BuildContext context) {
     //de lijst met maximaal 3 recente activiteiten die worden getoond
     final shownActivities = recentActivities.take(3).toList();
+    final workouts = recentActivities.length;
+    final totalMin = recentActivities.fold(0, (s, a) => s + a.minutes);
+    final totalKm = recentActivities.fold(0.0, (s, a) => s + a.km);
+    final totalCal = recentActivities.fold(0, (s, a) => s + a.cal);
+    final hours = (totalMin / 60).toStringAsFixed(1);
+
     //hier begint de pagina layout
     return Scaffold(
       appBar: AppBar(title: const Text('Activity')),
@@ -215,24 +248,25 @@ class _ActivityPageState extends State<ActivityPage> {
               mainAxisSpacing: 16,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              children: const [
+              //standard waarden voor de maandstatistieken
+              children: [
                 MonthStatCard(
-                  value: '28',
+                  value: '$workouts',
                   label: 'Workouts',
                   color: Colors.lightBlueAccent,
                 ),
                 MonthStatCard(
-                  value: '13.8 hrs',
+                  value: '$hours hrs',
                   label: 'Active Time',
                   color: Colors.lightGreenAccent,
                 ),
                 MonthStatCard(
-                  value: '142 km',
+                  value: '${totalKm.toStringAsFixed(1)} km',
                   label: 'Distance',
                   color: CupertinoColors.systemBrown,
                 ),
                 MonthStatCard(
-                  value: '7,850',
+                  value: '$totalCal',
                   label: 'Burned',
                   color: CupertinoColors.systemYellow,
                 ),
