@@ -202,7 +202,7 @@ class _ActivityPageState extends State<ActivityPage> {
               ),
             ),
 
-            //wat er zichbaar is onderaan de pagina
+            //wat er zichbaar is in de THIS MONTH sectie onderaan de pagina
             const SizedBox(height: 24),
             const Text(
               'This Month',
