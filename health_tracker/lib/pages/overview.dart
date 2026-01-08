@@ -10,6 +10,7 @@ class OverviewPage extends StatefulWidget {
 }
 
 class _OverviewPageState extends State<OverviewPage> {
+
   int _tabIndex = 0;
   final _tabs = const ['Weight', 'Heart', 'Calories', 'Sleep'];
 
@@ -18,6 +19,40 @@ class _OverviewPageState extends State<OverviewPage> {
   double weightKg = 50.5;
   double waterL = 1.5;
   double sleepHours = 7.5;
+  //functie voor water in namen
+  // void _editWaterIntake(BuildContext context, String currentWater) async {
+  //   final controller = TextEditingController(text: currentWater);
+
+  //   final result = await showDialog<String>(
+  //     context: context,
+  //     builder: (context) {
+  //       return AlertDialog(
+  //         title: const Text('Edit water intake'),
+  //         content: TextField(
+  //           controller: controller,
+  //           keyboardType: TextInputType.number,
+  //           decoration: const InputDecoration(suffixText: 'L'),
+  //         ),
+  //         actions: [
+  //           TextButton(
+  //             onPressed: () => Navigator.pop(context),
+  //             child: const Text('Cancel'),
+  //           ),
+  //           ElevatedButton(
+  //             onPressed: () {
+  //               Navigator.pop(context, controller.text);
+  //             },
+  //             child: const Text('Save'),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+
+  //   if (result != null && result.isNotEmpty) {
+  //     context.read<HealthData>().updateWaterIntake(result);
+  //   }
+  // }
 
   //functie om tips te genereren op basis van waardes
   String getWeightTip(double kg) {
@@ -48,12 +83,25 @@ class _OverviewPageState extends State<OverviewPage> {
     return "You may have slept a bit too much. Keeping a regular sleep schedule can help.";
   }
 
+  //functie om tips te maken op basis van waardes
+  String getHeartRateTip(int bpm) {
+    if (bpm < 60) {
+      return "Your heart rate is quite low. If you feel dizzy or tired, consider taking it easy.";
+    }
+    if (bpm <= 110) {
+      return "Your heart rate looks normal. Keep it up!";
+
+    }
+    return "Your heart rate is a bit high. Try to rest and take a few deep breaths.";
+  }
+
   //-----------------BUILD METHOD------------------//
   @override
   Widget build(BuildContext context) {
     final currentWeight = context.watch<HealthData>().weight;
     final currentHeartRate = context.watch<HealthData>().heartRate;
-
+    // final currentWater = context.watch<HealthData>().waterIntake;
+    // final currentSleep = context.watch<HealthData>().sleepHours;
     //final health = context.watch<HealthData>();
 
     // final currentWeight = health.weight;
@@ -66,6 +114,10 @@ class _OverviewPageState extends State<OverviewPage> {
 
     //final weightTip = getWeightTip(weightKg);
     final weightTip = getWeightTip(double.tryParse(currentWeight) ?? 0);
+    final heartTip = getHeartRateTip(int.tryParse(currentHeartRate) ?? 0);
+    // final waterTip = getWaterTip(double.tryParse(currentWater) ?? 0);
+    // final sleepTip = getSleepTip(double.tryParse(currentSleep) ?? 0);
+
     final waterTip = getWaterTip(waterL);
     final sleepTip = getSleepTip(sleepHours);
 
@@ -117,6 +169,7 @@ class _OverviewPageState extends State<OverviewPage> {
                   Expanded(
                     child: MetricCard(
                       title: 'Water intake',
+                      //value: '$currentWater L',
                       value: '${waterL.toStringAsFixed(1)}L',
                       color: const Color(0xFF3B5BDB),
                       textColor: Colors.white,
@@ -126,6 +179,7 @@ class _OverviewPageState extends State<OverviewPage> {
                   Expanded(
                     child: MetricCard(
                       title: 'Sleep',
+                      //value: '$currentSleep h',
                       value: '${sleepHours.toStringAsFixed(1)}/8h',
                       color: const Color(0xFF8E24AA),
                       textColor: Colors.white,
@@ -159,6 +213,9 @@ class _OverviewPageState extends State<OverviewPage> {
                     ),
                     const SizedBox(height: 10),
 
+                    TipTile(title: 'Heart rate', subtitle: heartTip),
+                    const SizedBox(height: 10),
+
                     TipTile(title: 'Weight', subtitle: weightTip),
                     const SizedBox(height: 10),
 
@@ -167,6 +224,8 @@ class _OverviewPageState extends State<OverviewPage> {
 
                     TipTile(title: 'Sleep', subtitle: sleepTip),
                     const SizedBox(height: 10),
+
+                    
                   ],
                 ),
               ),
