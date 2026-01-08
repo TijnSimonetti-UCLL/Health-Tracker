@@ -70,6 +70,7 @@ class _ActivityPageState extends State<ActivityPage> {
       cal: 420,
     ),
   ];
+  //------------------------------------------------------------------------------------------------------------------
 
   //----------------NIEUWE ACTIVITEIT TOEVOEGEN----------------//
   //dit zorgt ervoor dat je een nieuwe activiteit kan toevoegen
@@ -142,6 +143,7 @@ class _ActivityPageState extends State<ActivityPage> {
     });
   }
 
+  //------------------------------------------------------------------------------------------------------------------
   //----------------OPBOUW PAGINA----------------//
   //hier bewerk je de layout van de activity pagina
   @override
@@ -162,7 +164,7 @@ class _ActivityPageState extends State<ActivityPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //wat er zichbaar is bovenaan de pagina
+            //wat er zichbaar is bovenaan de pagina als standard info
             GridView.count(
               crossAxisCount: 2,
               crossAxisSpacing: 16,
@@ -278,6 +280,7 @@ class _ActivityPageState extends State<ActivityPage> {
     );
   }
 }
+//------------------------------------------------------------------------------------------------------------------
 
 //----------------WIDGETS VOOR DE HELE ACTIVITY PAGINA----------------//
 class ActivityTypeCard extends StatelessWidget {
@@ -316,6 +319,8 @@ class ActivityTypeCard extends StatelessWidget {
     );
   }
 }
+
+//------------------------------------------------------------------------------------------------------------------
 
 //-----------RECENTE ACTIVITEIT ITEM WIDGET-----------//
 //hier wordt de layout van elk item in de recente activiteiten lijst opgebouwd van wat er in de lijst staat
@@ -376,6 +381,8 @@ class ActivityListItem extends StatelessWidget {
   }
 }
 
+//------------------------------------------------------------------------------------------------------------------
+
 //-----------MAANDSTATISTIEKEN WIDGET-----------//
 //hier wordt de layout van elke maandstatistiek opgebouwd
 class MonthStatCard extends StatelessWidget {
@@ -390,7 +397,7 @@ class MonthStatCard extends StatelessWidget {
     required this.color,
   });
 
-  //dit is de info die in elke maandstatistiek kaartje komt te staan
+  //dit is de info die in elke maandstatistiek kaartje komt te staan en over de info ervan
   @override
   Widget build(BuildContext context) {
     return Container(
